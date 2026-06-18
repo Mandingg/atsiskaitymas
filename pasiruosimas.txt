@@ -1,0 +1,141 @@
+GITHUB:
+	1.+ New repository->add read.me/add gitignore/create
+	2. Terminale cmd: git --version - jeigu yra parodys, jei ne:
+	2.1 https://git-scm.com
+	2.1.1 git init
+	2.2 sukurtas folderis projetui, bunant jame: git remote add origin https://github.com/Mandingg/pasiruosimas.git
+
+	arba:
+	git clone https://github.com/Mandingg/pasiruosimas-back.git
+	cd 
+	git remote remove origin
+	git remote add origin https://github.com/Mandingg/egzaminas-2026-06-15.git
+	git push -u origin main
+	
+rm -r venv - panaikinti sena venv aplika (backend aplanke)
+.env faile esantis MYSQL_DATABASE=pasiruosimas turi sutapti su kuriama duombaze
+
+STRUKTURA:
+
+projekto-folderis/
+├── backend/
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── models/
+│   │   │   ├── user.py
+│   │   │   └── reservation.py
+│   │   ├── services/
+│   │   │   ├── db_connection.py
+│   │   │   ├── auth_service.py
+│   │   │   ├── user_service.py
+│   │   │   └── reservation_service.py
+│   │   ├── auth/
+│   │   │   ├── jwt_handler.py
+│   │   │   └── dependencies.py
+│   │   └── routes/
+│   │       ├── auth_routes.py
+│   │       ├── user_routes.py
+│   │       └── reservation_routes.py
+│   ├── .env
+│   └── requirements.txt
+│
+├── database/
+│   └── 01_schema.sql
+│
+├── frontend/
+│
+├── docker-compose.yml
+├── .gitignore
+└── README.md
+
+BACK:
+
+1. .env
+2. docker-compose.yml
+3. 01_schema.sql
+4. docker compose up -d
+5. python -m venv venv
+6. source venv/Scripts/activate
+7. pip install -r requirements.txt
+8. db_connection.py
+9. models
+10. jwt_handler.py
+11. dependencies.py
+12. user_service.py
+13. auth_service.py
+14. auth_routes.py
+15. user_routes.py
+16. reservation_service.py
+17. reservation_routes.py
+18. main.py include_router
+19. testuoti Swagger
+
+FRONT:
+
+1. npm create vite@latest frontend
+2. cd frontend
+3. npm install
+4. npm install axios react-router
+5. npm install axios react-router-dom ??? gal nereikia
+6. npm run dev
+7. app.jsx - pakeiciam I savo struktura
+8. pages/pagal struktura(login, register, reservations)
+9. Services/pagal struktura(auth, 
+
+ATSAKOMYBES(
+Route nekalba tiesiogiai su DB.
+Route kviečia service.
+Service naudoja DatabaseManager.
+):
+
+auth/
+  dependencies.py
+    - paima Bearer token
+    - patikrina tokeną
+    - grąžina payload
+
+  jwt_handler.py
+    - sukuria JWT
+    - įdeda exp laiką
+    - dekoduoja / verifikuoja tokeną
+
+models/
+  user.py
+  reservation.py
+    - aprašo duomenų struktūrą
+    - validuoja request body
+    - riboja leidžiamas reikšmes, pvz. role/status
+
+routes/
+  auth_routes.py
+  user_routes.py
+  reservation_routes.py
+    - aprašo endpointus
+    - priima requestus
+    - paima payload per Depends
+    - kviečia service
+    - HTTP status codes
+
+services/
+  db_connection.py
+    - jungiasi prie DB
+    - fetch_all, fetch_one, insert, update, delete
+
+  user_service.py
+    - user DB operacijos
+    - get_user_by_email
+    - get_user_by_id
+    - create_user
+
+  auth_service.py
+    - register
+    - login
+    - hash password
+    - verify password
+    - create token
+
+  reservation_service.py
+    - reservations CRUD logika
+    - admin/user teisių logika
+    - search/filter/sort/pagination vėliau
+
