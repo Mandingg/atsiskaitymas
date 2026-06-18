@@ -12,8 +12,7 @@ class UserCreateModel(BaseModel):
     @field_validator("password")
     @classmethod
     def validate_password(cls, value: str) -> str:
-        # if len(value.encode("utf-8")) > 72:
-        #     raise ValueError("Slaptazodis turi buti ne ilgesnis nei 72 baitai")
+        
         if not re.search(r"[A-Z]", value):
             raise ValueError(
                 "Slaptažodyje turi būti bent viena didžioji raidė")
