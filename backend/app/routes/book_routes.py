@@ -100,7 +100,7 @@ def update_book(
         )
 
 
-@router.delete("/{book_id}", status_code=status.HTTP_200_OK)
+@router.delete("/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_book(
     book_id: int,
     current_user=Depends(get_logged_user)

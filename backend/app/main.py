@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes.auth_routes import router as auth_router
 from app.routes.user_routes import router as user_router
 from app.routes.book_routes import router as book_router
+from app.routes.category_routes import router as category_router
 
 
 app = FastAPI(title="Atsiskaitymas API")    
@@ -37,3 +38,4 @@ def health_check():
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(book_router)
+app.include_router(category_router)

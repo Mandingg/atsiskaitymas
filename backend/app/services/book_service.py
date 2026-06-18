@@ -63,6 +63,19 @@ class BookService:
 
         if not category:
             raise ValueError("Kategorija negali būti tuščia.")
+        
+        existing_category = self.db.fetch_one(
+        """
+        SELECT *
+        FROM categories
+        WHERE LOWER(name) = LOWER(%s)
+        """,
+        (category,)
+    )
+
+        if not existing_category:
+            raise ValueError("Tokios kategorijos nėra.")
+        
 
         book_id = self.db.insert(
             """
